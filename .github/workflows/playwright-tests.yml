@@ -39,19 +39,22 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Run Selenium Tests
+        id: run-tests
+        continue-on-error: true
         env:
           TEST_ENVIRONMENT: prod
           CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
-          Framework__URL: ${{ secrets.SELENIUM_TARGET_URL }}
+          Framework__ORANGEHRM_URL: ${{ secrets.ORANGEHRM_URL }}
+          Framework__ORANGEHRM_ADMIN_USER: ${{ secrets.ORANGEHRM_USER }}
+          Framework__ORANGEHRM_ADMIN_PASSWORD: ${{ secrets.ORANGEHRM_PASSWORD }}
         run: |
-          # We execute 'dotnet test' from the root. The trx file lands inside the test project's folder hierarchy natively.
-          dotnet test --configuration Release --no-build --logger "trx;LogFileName=test_results.trx" || true
+          dotnet test --configuration Release --no-build --logger "trx;LogFileName=test_results.trx"
 
       - name: Generate Reqnroll LivingDoc HTML Report
         if: always()
         run: |
           livingdoc test-assembly Selenium.Reqnroll/bin/Release/net8.0/Selenium.Reqnroll.dll \
-            -t Selenium.Reqnroll/bin/Release/net8.0/TestResults/test_results.trx \
+            -t Selenium.Reqnroll/TestResults/test_results.trx \
             -o ./LivingDocReport/index.html || echo "Failed to generate LivingDoc"
 
       - name: Upload Report Artifact
@@ -61,6 +64,12 @@ jobs:
           name: reqnroll-livingdoc
           path: ./LivingDocReport
           if-no-files-found: warn
+
+      - name: Formally Fail Job if Tests Failed
+        if: always() && steps.run-tests.outcome == 'failure'
+        run: |
+          echo "❌ Test execution contained failures. Marking job as failed."
+          exit 1
 
   deploy:
     needs: test
