@@ -11,47 +11,44 @@ namespace Selenium.Reqnroll.Support
         [StepArgumentTransformation]
         public PopupMessages TransformToPopupMessage(string messageText)
         {
-            var match = Enum.GetValues<PopupMessages>()
-                .Cast<PopupMessages?>()
-                .FirstOrDefault(e => e!.Value.GetType()
-                    .GetField(e.Value.ToString())?
-                    .GetCustomAttribute<DescriptionAttribute>()?.Description == messageText);
-
-            if (match == null)
+            if (TryGetEnumByDescription<PopupMessages>(messageText, out var matchedMessage))
             {
-                throw new ArgumentException($"Oops! The text '{messageText}' does not match any official popup message in the Enum.");
+                return matchedMessage;
             }
 
-            return match.Value;
+            throw new ArgumentException($"Oops! The text '{messageText}' does not match any official popup message in the Enum.");
         }
 
         [StepArgumentTransformation]
         public MenuItems TransformToMenuItem(string sectionName)
         {
-            // Search for a match by the [Description] attribute (returns a nullable)
-            var matchByDescription = Enum.GetValues<MenuItems>()
-                .Cast<MenuItems?>()
-                .FirstOrDefault(e => e!.Value.GetType()
-                    .GetField(e!.Value.ToString())?
-                    .GetCustomAttribute<DescriptionAttribute>()?.Description == sectionName);
-
-            if (matchByDescription != null)
+            if (TryGetEnumByDescription<MenuItems>(sectionName, out var matchedMenu))
             {
-                return matchByDescription.Value;
+                return matchedMenu;
             }
 
-            // If there is no description, try matching by the enum name directly (safer than a plain TryParse)
-            var matchByName = Enum.GetValues<MenuItems>()
-                .Cast<MenuItems?>()
-                .FirstOrDefault(e => string.Equals(e!.Value.ToString(), sectionName, StringComparison.OrdinalIgnoreCase));
+            throw new ArgumentException($"Error: Menu '{sectionName}' does not match any known menu items. Please check the feature file for typos.");
+        }
 
-            if (matchByName != null)
+        /// <summary>
+        /// Reusable generic helper that looks up any Enum value by its [Description] attribute value.
+        /// </summary>
+        private static bool TryGetEnumByDescription<TEnum>(string description, out TEnum result) where TEnum : struct, Enum
+        {
+            foreach (TEnum val in Enum.GetValues<TEnum>())
             {
-                return matchByName.Value;
+                FieldInfo? fieldInfo = val.GetType().GetField(val.ToString());
+                var attribute = fieldInfo?.GetCustomAttribute<DescriptionAttribute>();
+
+                if (attribute != null && string.Equals(attribute.Description, description, StringComparison.OrdinalIgnoreCase))
+                {
+                    result = val;
+                    return true;
+                }
             }
 
-            // If neither description nor name matches (possible typo in the feature file)
-            throw new ArgumentException($"Error: Menu '{sectionName}' does not match any known menu items. Please check the feature file for typos or update the enum with a matching description.");
+            result = default;
+            return false;
         }
     }
 }

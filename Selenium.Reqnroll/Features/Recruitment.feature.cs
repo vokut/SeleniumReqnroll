@@ -20,14 +20,12 @@ namespace Selenium.Reqnroll.Features
     [global::NUnit.Framework.TestFixtureAttribute()]
     [global::NUnit.Framework.DescriptionAttribute("Recruitment management")]
     [global::NUnit.Framework.FixtureLifeCycleAttribute(global::NUnit.Framework.LifeCycle.InstancePerTestCase)]
-    [global::NUnit.Framework.IgnoreAttribute("Ignored feature")]
     public partial class RecruitmentManagementFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
-        private static string[] featureTags = new string[] {
-                "Ignore"};
+        private static string[] featureTags = ((string[])(null));
         
         private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "Recruitment management", "  As an HR administrator\r\n  I want to manage candidates\r\n  So that I can track re" +
                 "cruitment activities efficiently", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
@@ -108,12 +106,12 @@ namespace Selenium.Reqnroll.Features
         
         public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
         {
-#line 7
+#line 6
   #line hidden
-#line 8
+#line 7
     await testRunner.GivenAsync("I am logged in as admin", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 9
+#line 8
     await testRunner.WhenAsync("I navigate to the \"Recruitment\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
         }
@@ -133,7 +131,7 @@ namespace Selenium.Reqnroll.Features
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Create a new candidate", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 11
+#line 10
   this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -143,16 +141,16 @@ namespace Selenium.Reqnroll.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 7
+#line 6
   await this.FeatureBackgroundAsync();
 #line hidden
-#line 12
+#line 11
     await testRunner.WhenAsync("I open the Recruitment \"Candidates\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 13
+#line 12
     await testRunner.AndAsync("I add a new candidate", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 14
+#line 13
     await testRunner.ThenAsync("the saved candidate details should match the input profile", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -169,7 +167,7 @@ namespace Selenium.Reqnroll.Features
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Search returns no results for invalid keywords", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 16
+#line 15
   this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -179,19 +177,19 @@ namespace Selenium.Reqnroll.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 7
+#line 6
   await this.FeatureBackgroundAsync();
 #line hidden
-#line 17
+#line 16
     await testRunner.GivenAsync("I create two temporary candidates", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 18
+#line 17
     await testRunner.WhenAsync("I navigate to the \"Recruitment\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 19
+#line 18
     await testRunner.AndAsync("I search for candidates by an invalid keyword", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 20
+#line 19
     await testRunner.ThenAsync("I should see the \"No Records Found\" message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -208,7 +206,7 @@ namespace Selenium.Reqnroll.Features
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Search returns a single matching record for valid keywords", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 22
+#line 21
   this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -218,19 +216,19 @@ namespace Selenium.Reqnroll.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 7
+#line 6
   await this.FeatureBackgroundAsync();
 #line hidden
-#line 23
+#line 22
     await testRunner.GivenAsync("I create two temporary candidates", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 24
+#line 23
     await testRunner.WhenAsync("I navigate to the \"Recruitment\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 25
+#line 24
     await testRunner.AndAsync("I search for candidates by the first candidate\'s keyword", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 26
+#line 25
     await testRunner.ThenAsync("I should see exactly one matching record", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -247,7 +245,7 @@ namespace Selenium.Reqnroll.Features
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Delete a candidate", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 28
+#line 27
   this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -257,25 +255,25 @@ namespace Selenium.Reqnroll.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 7
+#line 6
   await this.FeatureBackgroundAsync();
 #line hidden
-#line 29
+#line 28
     await testRunner.GivenAsync("I create a temporary candidate", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 30
+#line 29
     await testRunner.WhenAsync("I navigate to the \"Recruitment\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 31
+#line 30
     await testRunner.AndAsync("I search for that candidate by keyword", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 32
+#line 31
     await testRunner.AndAsync("I delete that candidate", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 33
+#line 32
     await testRunner.ThenAsync("I should see the \"Successfully Deleted\" message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 34
+#line 33
     await testRunner.AndAsync("I should see the \"No Records Found\" message", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
