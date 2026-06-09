@@ -18,11 +18,6 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Install Reqnroll LivingDoc Tool via Manifest
-        run: |
-          dotnet new tool-manifest
-          dotnet tool install Reqnroll.LivingDoc.CLI
-
       - name: Setup Chrome and ChromeDriver
         uses: browser-actions/setup-chrome@v1
         with:
@@ -49,22 +44,22 @@ jobs:
           Framework__ORANGEHRM_URL: ${{ secrets.ORANGEHRM_URL }}
           Framework__ORANGEHRM_ADMIN_USER: ${{ secrets.ORANGEHRM_USER }}
           Framework__ORANGEHRM_ADMIN_PASSWORD: ${{ secrets.ORANGEHRM_PASSWORD }}
+          REQNROLL_FORMATTERS_HTML: 'outputFilePath=LivingDocReport/index.html'
         run: |
           dotnet test --configuration Release --no-build --logger "trx;LogFileName=test_results.trx"
 
-      - name: Generate Reqnroll LivingDoc HTML Report
+      - name: Locate and Stage Native Report
         if: always()
         run: |
-          dotnet tool run livingdoc test-assembly Selenium.Reqnroll/bin/Release/net8.0/Selenium.Reqnroll.dll \
-            -t Selenium.Reqnroll/TestResults/test_results.trx \
-            -o ./LivingDocReport/index.html || echo "Failed to generate LivingDoc"
+          mkdir -p ./StagingReport
+          find . -path "*/LivingDocReport/index.html" -exec cp {} ./StagingReport/index.html \; || echo "No report found"
 
       - name: Upload Report Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: reqnroll-livingdoc
-          path: ./LivingDocReport
+          path: ./StagingReport
           if-no-files-found: warn
 
       - name: Formally Fail Job if Tests Failed
@@ -83,13 +78,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: reqnroll-livingdoc
-          path: ./LivingDocReport
+          path: ./StagingReport
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./LivingDocReport
+          publish_dir: ./StagingReport
           force_orphan: true
           enable_jekyll: false
           user_name: vokut
