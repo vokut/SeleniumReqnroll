@@ -1,5 +1,4 @@
-﻿@Ignore
-Feature: PIM employee management
+﻿Feature: PIM employee management
   As an HR administrator
   I want to create, update, and delete employees
   So that personnel records remain accurate
