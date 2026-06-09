@@ -71,8 +71,8 @@ namespace Selenium.Reqnroll.Steps
             _assertionHelpers.AssertPopupMessage(PopupMessages.SuccessfullySaved);
         }
 
-        [When("I delete that location")]
-        public void WhenIDeleteThatLocation()
+        [When("I search for that location")]
+        public void WhenISearchForThatLocation()
         {
             _actionHelpers.Type(_actionHelpers.Input("Name"), _locationName!);
             _actionHelpers.ButtonClick("Search");
@@ -81,7 +81,11 @@ namespace Selenium.Reqnroll.Steps
 
             var cellValue = _actionHelpers.GetCellValue(1, "Name");
             Assert.That(cellValue, Is.EqualTo(_locationName));
+        }
 
+        [When("I delete the first located record")]
+        public void WhenIDeleteTheFirstLocatedRecord()
+        {
             _actionHelpers.ClickDeleteIcon(1);
             _actionHelpers.ConfirmationButtonClick("Yes, Delete");
         }

@@ -5,11 +5,12 @@
 
   Background:
     Given I am logged in as admin
-    When I navigate to the "PIM" section
+    And I am on the "PIM" section
 
   Scenario: Create a new employee
     When I open the PIM "Add Employee" section
     And I add a new employee
+    Then the saved employee details should match the input profile
 
   Scenario: Edit an employee's contact details
     When I create a temporary employee
@@ -24,7 +25,7 @@
     And I search for that employee by ID
     And I delete that employee
     Then I should see the "Successfully Deleted" message
-    Then I should see the "No Records Found" message
+    And I should see the "No Records Found" message
 
   Scenario: Cancel employee deletion
     When I create a temporary employee

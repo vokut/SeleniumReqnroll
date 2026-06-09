@@ -38,7 +38,9 @@ namespace Selenium.Reqnroll.Pages
 
         public void AssertSavedEmployeeDetails(Employee employee)
         {
-            string actualFirstName = _waitHelpers.WaitForElementVisible(_actionHelpers.Input("First name", hasLabel: false)).GetAttribute("value") ?? string.Empty;
+            _waitHelpers.WaitForElementAttributeValue(_actionHelpers.Input("First Name", hasLabel: false), "value", employee.FirstName);
+
+            string actualFirstName = _waitHelpers.WaitForElementVisible(_actionHelpers.Input("First Name", hasLabel: false)).GetAttribute("value") ?? string.Empty;
             Assert.That(actualFirstName, Is.EqualTo(employee.FirstName));
 
             string actualMiddleName = _waitHelpers.WaitForElementVisible(_actionHelpers.Input("Middle Name", hasLabel: false)).GetAttribute("value") ?? string.Empty;

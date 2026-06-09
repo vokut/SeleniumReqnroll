@@ -112,7 +112,7 @@ namespace Selenium.Reqnroll.Features
     await testRunner.GivenAsync("I am logged in as admin", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 8
-    await testRunner.WhenAsync("I navigate to the \"Admin\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+    await testRunner.AndAsync("I am on the \"Admin\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
         }
         
@@ -223,12 +223,15 @@ namespace Selenium.Reqnroll.Features
     await testRunner.AndAsync("I create a temporary location", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 23
-    await testRunner.AndAsync("I delete that location", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.AndAsync("I search for that location", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 24
-    await testRunner.ThenAsync("I should see the \"Successfully Deleted\" message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+    await testRunner.AndAsync("I delete the first located record", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 25
+    await testRunner.ThenAsync("I should see the \"Successfully Deleted\" message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 26
     await testRunner.AndAsync("I should see the \"No Records Found\" message", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }

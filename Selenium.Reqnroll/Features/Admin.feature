@@ -5,7 +5,7 @@ So that organizational data stays up to date
 
   Background:
     Given I am logged in as admin
-    When I navigate to the "Admin" section
+    And I am on the "Admin" section
 
   Scenario: Create a new job title
     When I open the "Job" -> "Job Titles" section
@@ -20,6 +20,7 @@ So that organizational data stays up to date
   Scenario: Delete a location
     When I open the "Organization" -> "Locations" section
     And I create a temporary location
-    And I delete that location
+    And I search for that location
+    And I delete the first located record
     Then I should see the "Successfully Deleted" message
     And I should see the "No Records Found" message

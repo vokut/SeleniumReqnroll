@@ -112,7 +112,7 @@ namespace Selenium.Reqnroll.Features
     await testRunner.GivenAsync("I am logged in as admin", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 8
-    await testRunner.WhenAsync("I navigate to the \"Recruitment\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+    await testRunner.AndAsync("I am on the \"Recruitment\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
         }
         
@@ -184,10 +184,10 @@ namespace Selenium.Reqnroll.Features
     await testRunner.GivenAsync("I create two temporary candidates", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 17
-    await testRunner.WhenAsync("I navigate to the \"Recruitment\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+    await testRunner.AndAsync("I am on the \"Recruitment\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 18
-    await testRunner.AndAsync("I search for candidates by an invalid keyword", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.WhenAsync("I search for candidates by an invalid keyword", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 19
     await testRunner.ThenAsync("I should see the \"No Records Found\" message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -223,10 +223,10 @@ namespace Selenium.Reqnroll.Features
     await testRunner.GivenAsync("I create two temporary candidates", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 23
-    await testRunner.WhenAsync("I navigate to the \"Recruitment\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+    await testRunner.AndAsync("I am on the \"Recruitment\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 24
-    await testRunner.AndAsync("I search for candidates by the first candidate\'s keyword", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.WhenAsync("I search for candidates by the first candidate\'s keyword", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 25
     await testRunner.ThenAsync("I should see exactly one matching record", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -262,10 +262,10 @@ namespace Selenium.Reqnroll.Features
     await testRunner.GivenAsync("I create a temporary candidate", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 29
-    await testRunner.WhenAsync("I navigate to the \"Recruitment\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+    await testRunner.AndAsync("I am on the \"Recruitment\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 30
-    await testRunner.AndAsync("I search for that candidate by keyword", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.WhenAsync("I search for that candidate by keyword", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 31
     await testRunner.AndAsync("I delete that candidate", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");

@@ -89,6 +89,12 @@ namespace Selenium.Reqnroll.Steps
             _actionHelpers.ConfirmationButtonClick("No, Cancel");
         }
 
+        [Then("the saved employee details should match the input profile")]
+        public void ThenTheSavedEmployeeDetailsShouldMatchTheInputProfile()
+        {
+            _pimPage.AssertSavedEmployeeDetails(_employee!);
+        }
+
         [Then("I should still find that employee in the list")]
         public void ThenIShouldStillFindEmployee()
         {

@@ -131,6 +131,24 @@ namespace Selenium.Reqnroll.Helpers
                 ? Driver.FindElements(locator)
                 : new System.Collections.Generic.List<IWebElement>();
         }
+
+        public void WaitForElementAttributeValue(By locator, string attributeName, string expectedValue, int? timeoutSeconds = null)
+        {
+            var element = WaitForElementVisible(locator, timeoutSeconds);
+
+            try
+            {
+                GetWait(timeoutSeconds).Until(d =>
+                {
+                    var currentValue = element.GetAttribute(attributeName) ?? string.Empty;
+                    return string.Equals(currentValue, expectedValue, StringComparison.OrdinalIgnoreCase);
+                });
+            }
+            catch (WebDriverTimeoutException)
+            {
+                Assert.Fail($"Assertion Failed: Expected element attribute '{attributeName}' to be '{expectedValue}' within {timeoutSeconds ?? _defaultTimeoutSeconds} seconds.\nLocator used: {locator}");
+            }
+        }
     }
 
     public interface IWaitHelpers
@@ -140,5 +158,6 @@ namespace Selenium.Reqnroll.Helpers
         void WaitForElementInvisible(By locator, int? timeoutSeconds = null);
         void Wait(int seconds);
         IReadOnlyList<IWebElement> FindElements(By locator, int? timeoutSeconds = null);
+        void WaitForElementAttributeValue(By locator, string attributeName, string expectedValue, int? timeoutSeconds = null);
     }
 }
