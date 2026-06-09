@@ -19,8 +19,8 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Install Reqnroll LivingDoc Tool
-        run: dotnet tool install --global Reqnroll.LivingDoc.CLI || true
-
+        run: dotnet tool install Reqnroll.LivingDoc.CLI --tool-path ./config-tools || true
+        
       - name: Setup Chrome and ChromeDriver
         uses: browser-actions/setup-chrome@v1
         with:
@@ -53,7 +53,7 @@ jobs:
       - name: Generate Reqnroll LivingDoc HTML Report
         if: always()
         run: |
-          $HOME/.dotnet/tools/livingdoc test-assembly Selenium.Reqnroll/bin/Release/net8.0/Selenium.Reqnroll.dll \
+          ./config-tools/livingdoc test-assembly Selenium.Reqnroll/bin/Release/net8.0/Selenium.Reqnroll.dll \
             -t Selenium.Reqnroll/TestResults/test_results.trx \
             -o ./LivingDocReport/index.html || echo "Failed to generate LivingDoc"
             
