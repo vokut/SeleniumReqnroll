@@ -1,0 +1,90 @@
+name: Selenium Reqnroll Automation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install Reqnroll LivingDoc Tool
+        run: dotnet tool install --global Reqnroll.LivingDoc.CLI || true
+
+      - name: Setup Chrome and ChromeDriver
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+        id: setup-chrome
+
+      - name: Verify Chrome Installation
+        run: |
+          google-chrome --version
+          echo "Chrome Binary Path: ${{ steps.setup-chrome.outputs.chrome-path }}"
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build solution
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run Selenium Tests
+        env:
+          TEST_ENVIRONMENT: prod
+          CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
+          Framework__URL: ${{ secrets.SELENIUM_TARGET_URL }}
+        run: |
+          # We execute 'dotnet test' from the root. The trx file lands inside the test project's folder hierarchy natively.
+          dotnet test --configuration Release --no-build --logger "trx;LogFileName=test_results.trx" || true
+
+      - name: Generate Reqnroll LivingDoc HTML Report
+        if: always()
+        run: |
+          livingdoc test-assembly Selenium.Reqnroll/bin/Release/net8.0/Selenium.Reqnroll.dll \
+            -t Selenium.Reqnroll/bin/Release/net8.0/TestResults/test_results.trx \
+            -o ./LivingDocReport/index.html || echo "Failed to generate LivingDoc"
+
+      - name: Upload Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reqnroll-livingdoc
+          path: ./LivingDocReport
+          if-no-files-found: warn
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+      - name: Download Report Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: reqnroll-livingdoc
+          path: ./LivingDocReport
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./LivingDocReport
+          force_orphan: true
+          enable_jekyll: false
+          user_name: vokut
+          user_email: vokut@users.noreply.github.com
+
+      - name: Add report link to summary
+        if: always()
+        run: |
+          echo "✅ [View Latest Reqnroll LivingDoc Report](https://vokut.github.io/SeleniumReqnroll/)" >> $GITHUB_STEP_SUMMARY

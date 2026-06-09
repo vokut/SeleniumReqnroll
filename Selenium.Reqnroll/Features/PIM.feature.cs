@@ -30,6 +30,9 @@ namespace Selenium.Reqnroll.Features
         private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "PIM employee management", "  As an HR administrator\r\n  I want to create, update, and delete employees\r\n  So " +
                 "that personnel records remain accurate", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
+#line 1 "PIM.feature"
+#line hidden
+        
         [global::NUnit.Framework.OneTimeSetUpAttribute()]
         public static async global::System.Threading.Tasks.Task FeatureSetupAsync()
         {
@@ -103,8 +106,14 @@ namespace Selenium.Reqnroll.Features
         
         public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
         {
-            await testRunner.GivenAsync("I am logged in as admin", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
-            await testRunner.WhenAsync("I navigate to the \"PIM\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 6
+  #line hidden
+#line 7
+    await testRunner.GivenAsync("I am logged in as admin", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 8
+    await testRunner.WhenAsync("I navigate to the \"PIM\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
         }
         
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
@@ -122,7 +131,9 @@ namespace Selenium.Reqnroll.Features
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Create a new employee", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-            this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line 10
+  this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 await testRunner.SkipScenarioAsync();
@@ -130,9 +141,15 @@ namespace Selenium.Reqnroll.Features
             else
             {
                 await this.ScenarioStartAsync();
-                await this.FeatureBackgroundAsync();
-                await testRunner.WhenAsync("I open the PIM \"Add Employee\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-                await testRunner.AndAsync("I add a new employee", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line 6
+  await this.FeatureBackgroundAsync();
+#line hidden
+#line 11
+    await testRunner.WhenAsync("I open the PIM \"Add Employee\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 12
+    await testRunner.AndAsync("I add a new employee", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
             }
             await this.ScenarioCleanupAsync();
         }
@@ -147,7 +164,9 @@ namespace Selenium.Reqnroll.Features
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Edit an employee\'s contact details", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-            this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line 14
+  this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 await testRunner.SkipScenarioAsync();
@@ -155,12 +174,24 @@ namespace Selenium.Reqnroll.Features
             else
             {
                 await this.ScenarioStartAsync();
-                await this.FeatureBackgroundAsync();
-                await testRunner.WhenAsync("I create a temporary employee", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-                await testRunner.AndAsync("I open the PIM \"Employee List\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-                await testRunner.AndAsync("I search for that employee by ID", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-                await testRunner.AndAsync("I edit the employee\'s contact details", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-                await testRunner.ThenAsync("I should see the \"Successfully Updated\" message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line 6
+  await this.FeatureBackgroundAsync();
+#line hidden
+#line 15
+    await testRunner.WhenAsync("I create a temporary employee", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 16
+    await testRunner.AndAsync("I open the PIM \"Employee List\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 17
+    await testRunner.AndAsync("I search for that employee by ID", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 18
+    await testRunner.AndAsync("I edit the employee\'s contact details", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 19
+    await testRunner.ThenAsync("I should see the \"Successfully Updated\" message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
             }
             await this.ScenarioCleanupAsync();
         }
@@ -175,7 +206,9 @@ namespace Selenium.Reqnroll.Features
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Delete an employee", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-            this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line 21
+  this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 await testRunner.SkipScenarioAsync();
@@ -183,13 +216,27 @@ namespace Selenium.Reqnroll.Features
             else
             {
                 await this.ScenarioStartAsync();
-                await this.FeatureBackgroundAsync();
-                await testRunner.WhenAsync("I create a temporary employee", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-                await testRunner.AndAsync("I open the PIM \"Employee List\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-                await testRunner.AndAsync("I search for that employee by ID", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-                await testRunner.AndAsync("I delete that employee", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-                await testRunner.ThenAsync("I should see the \"Successfully Deleted\" message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-                await testRunner.ThenAsync("I should see the \"No Records Found\" message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line 6
+  await this.FeatureBackgroundAsync();
+#line hidden
+#line 22
+    await testRunner.WhenAsync("I create a temporary employee", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 23
+    await testRunner.AndAsync("I open the PIM \"Employee List\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 24
+    await testRunner.AndAsync("I search for that employee by ID", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 25
+    await testRunner.AndAsync("I delete that employee", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 26
+    await testRunner.ThenAsync("I should see the \"Successfully Deleted\" message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 27
+    await testRunner.ThenAsync("I should see the \"No Records Found\" message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
             }
             await this.ScenarioCleanupAsync();
         }
@@ -204,7 +251,9 @@ namespace Selenium.Reqnroll.Features
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Cancel employee deletion", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-            this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line 29
+  this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 await testRunner.SkipScenarioAsync();
@@ -212,12 +261,24 @@ namespace Selenium.Reqnroll.Features
             else
             {
                 await this.ScenarioStartAsync();
-                await this.FeatureBackgroundAsync();
-                await testRunner.WhenAsync("I create a temporary employee", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-                await testRunner.AndAsync("I open the PIM \"Employee List\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-                await testRunner.AndAsync("I search for that employee by ID", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-                await testRunner.AndAsync("I start deleting the employee but cancel the confirmation", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-                await testRunner.ThenAsync("I should still find that employee in the list", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line 6
+  await this.FeatureBackgroundAsync();
+#line hidden
+#line 30
+    await testRunner.WhenAsync("I create a temporary employee", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 31
+    await testRunner.AndAsync("I open the PIM \"Employee List\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 32
+    await testRunner.AndAsync("I search for that employee by ID", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 33
+    await testRunner.AndAsync("I start deleting the employee but cancel the confirmation", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 34
+    await testRunner.ThenAsync("I should still find that employee in the list", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
             }
             await this.ScenarioCleanupAsync();
         }

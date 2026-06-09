@@ -37,7 +37,7 @@ namespace Selenium.Core.Drivers
 
                 if (sel.Headless)
                 {
-                    options.AddArgument("--headless");
+                    options.AddArgument("--headless=new");
                     options.AddArgument("--disable-gpu");
                 }
 
