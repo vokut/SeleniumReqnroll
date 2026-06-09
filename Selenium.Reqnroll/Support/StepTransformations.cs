@@ -19,7 +19,7 @@ namespace Selenium.Reqnroll.Support
 
             if (match == null)
             {
-                throw new ArgumentException($"Ужас! Текстът '{messageText}' не съвпада с нито едно официално попъп съобщение в Enum-а.");
+                throw new ArgumentException($"Oops! The text '{messageText}' does not match any official popup message in the Enum.");
             }
 
             return match.Value;
