@@ -53,11 +53,10 @@ jobs:
       - name: Generate Reqnroll LivingDoc HTML Report
         if: always()
         run: |
-          export PATH="$PATH:$HOME/.dotnet/tools"
-          
-          livingdoc test-assembly Selenium.Reqnroll/bin/Release/net8.0/Selenium.Reqnroll.dll \
+          $HOME/.dotnet/tools/livingdoc test-assembly Selenium.Reqnroll/bin/Release/net8.0/Selenium.Reqnroll.dll \
             -t Selenium.Reqnroll/TestResults/test_results.trx \
             -o ./LivingDocReport/index.html || echo "Failed to generate LivingDoc"
+            
       - name: Upload Report Artifact
         if: always()
         uses: actions/upload-artifact@v4

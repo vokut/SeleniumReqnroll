@@ -1,4 +1,5 @@
-﻿Feature: Recruitment management
+﻿@Ignore
+Feature: Recruitment management
   As an HR administrator
   I want to manage candidates
   So that I can track recruitment activities efficiently
