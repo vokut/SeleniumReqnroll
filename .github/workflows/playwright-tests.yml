@@ -18,9 +18,11 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Install Reqnroll LivingDoc Tool
-        run: dotnet tool install Reqnroll.LivingDoc.CLI --tool-path ./config-tools || true
-        
+      - name: Install Reqnroll LivingDoc Tool via Manifest
+        run: |
+          dotnet new tool-manifest
+          dotnet tool install Reqnroll.LivingDoc.CLI
+
       - name: Setup Chrome and ChromeDriver
         uses: browser-actions/setup-chrome@v1
         with:
@@ -50,25 +52,13 @@ jobs:
         run: |
           dotnet test --configuration Release --no-build --logger "trx;LogFileName=test_results.trx"
 
-      - name: Debug File System Paths
-        if: always()
-        run: |
-          echo "=== Current Working Directory ==="
-          pwd
-          echo "=== Contents of config-tools ==="
-          ls -la ./config-tools || echo "config-tools folder not found"
-          echo "=== Searching for livingdoc binary ==="
-          find . -name "livingdoc" || echo "livingdoc not found anywhere"
-          echo "=== Searching for test_results.trx ==="
-          find . -name "test_results.trx" || echo "test_results.trx not found anywhere"
-
       - name: Generate Reqnroll LivingDoc HTML Report
         if: always()
         run: |
-          ./config-tools/livingdoc test-assembly Selenium.Reqnroll/bin/Release/net8.0/Selenium.Reqnroll.dll \
-            -t $(find . -name "test_results.trx" | head -n 1) \
+          dotnet tool run livingdoc test-assembly Selenium.Reqnroll/bin/Release/net8.0/Selenium.Reqnroll.dll \
+            -t Selenium.Reqnroll/TestResults/test_results.trx \
             -o ./LivingDocReport/index.html || echo "Failed to generate LivingDoc"
-            
+
       - name: Upload Report Artifact
         if: always()
         uses: actions/upload-artifact@v4
