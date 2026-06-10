@@ -17,6 +17,7 @@ namespace Selenium.Reqnroll.Support
 
             TestSettings config = ConfigManager.Initialize();
             services.AddSingleton<TestSettings>(config);
+            services.AddSingleton<IWebDriverFactory, WebDriverFactory>();
 
             services.AddScoped<IDriverManager, DriverManager>();
 

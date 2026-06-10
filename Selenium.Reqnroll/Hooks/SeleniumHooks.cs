@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium;
 using Reqnroll;
 using Selenium.Core.Drivers;
-using Selenium.Core.Models;
 
 namespace Selenium.Reqnroll.Hooks
 {
@@ -10,21 +8,18 @@ namespace Selenium.Reqnroll.Hooks
     public class SeleniumHooks
     {
         private readonly IDriverManager _driverManager;
-        private readonly TestSettings _config;
+        private readonly IWebDriverFactory _driverFactory;
 
-        public SeleniumHooks(IDriverManager driverManager, TestSettings config)
+        public SeleniumHooks(IDriverManager driverManager, IWebDriverFactory driverFactory)
         {
-            _driverManager = driverManager;
-            _config = config ?? throw new ArgumentNullException(nameof(config));
+            _driverManager = driverManager ?? throw new ArgumentNullException(nameof(driverManager));
+            _driverFactory = driverFactory ?? throw new ArgumentNullException(nameof(driverFactory));
         }
 
-        [BeforeScenario(Order = 1)] // Order = 1 ensures this runs AFTER DependenciesConfiguration (Order 0)
+        [BeforeScenario(Order = 1)]
         public void BeforeScenario()
         {
-            var factory = new WebDriverFactory(_config);
-            IWebDriver driver = factory.InitializeDriver();
-
-            _driverManager.SetDriver(driver);
+            _driverManager.SetDriver(_driverFactory.InitializeDriver());
         }
 
         [AfterScenario]
@@ -32,7 +27,6 @@ namespace Selenium.Reqnroll.Hooks
         {
             try
             {
-                // 🔹 Safely tear down using the instance reference
                 _driverManager.QuitDriver();
             }
             catch (Exception ex)

@@ -6,13 +6,18 @@ using Selenium.Core.Models;
 
 namespace Selenium.Core.Drivers
 {
-    public class WebDriverFactory
+    public interface IWebDriverFactory
+    {
+        IWebDriver InitializeDriver();
+    }
+
+    public class WebDriverFactory : IWebDriverFactory
     {
         private readonly TestSettings _settings;
 
         public WebDriverFactory(TestSettings settings)
         {
-            _settings = settings;
+            _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         }
 
         public IWebDriver InitializeDriver()
