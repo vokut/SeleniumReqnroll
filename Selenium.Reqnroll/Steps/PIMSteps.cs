@@ -23,12 +23,6 @@ namespace Selenium.Reqnroll.Steps
             _assertionHelpers = assertionHelpers ?? throw new ArgumentNullException(nameof(assertionHelpers));
         }
 
-        [When(@"I open the PIM ""([^""]+)"" section")]
-        public void WhenIOpenPIMSection(string section)
-        {
-            _actionHelpers.OpenSection(section);
-        }
-
         [When("I add a new employee")]
         public void WhenIAddANewEmployee()
         {
@@ -58,6 +52,7 @@ namespace Selenium.Reqnroll.Steps
         [When("I search for that employee by ID")]
         public void WhenISearchForThatEmployeeById()
         {
+            _actionHelpers.ExpandFilter();
             _actionHelpers.Type(_actionHelpers.Input("Employee Id", hasLabel: true), _employee!.EmployeeId);
             _actionHelpers.ButtonClick("Search");
 
@@ -68,7 +63,7 @@ namespace Selenium.Reqnroll.Steps
         public void WhenIEditTheEmployeesContactDetails()
         {
             _actionHelpers.ClickPencilIcon(1);
-            _pimPage.OpenEmployeeSection("Contact Details");
+            _actionHelpers.OpenTabInItem("Contact Details");
 
             var newEmail = $"test_{Guid.NewGuid():N}@example.com";
             _actionHelpers.Type(_actionHelpers.Input("Work Email", hasLabel: true), newEmail);

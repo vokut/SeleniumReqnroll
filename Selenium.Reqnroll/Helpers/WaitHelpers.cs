@@ -149,6 +149,20 @@ namespace Selenium.Reqnroll.Helpers
                 Assert.Fail($"Assertion Failed: Expected element attribute '{attributeName}' to be '{expectedValue}' within {timeoutSeconds ?? _defaultTimeoutSeconds} seconds.\nLocator used: {locator}");
             }
         }
+        
+        public bool IsElementVisible(By locator)
+        {
+            try
+            {
+                Driver.Manage().Timeouts().ImplicitWait = TimeSpan.Zero;
+                var elements = Driver.FindElements(locator);
+                return elements.Count > 0 && elements[0].Displayed;
+            }
+            finally
+            {
+                Driver.Manage().Timeouts().ImplicitWait = _originalImplicitWait;
+            }
+        }
     }
 
     public interface IWaitHelpers
@@ -159,5 +173,6 @@ namespace Selenium.Reqnroll.Helpers
         void Wait(int seconds);
         IReadOnlyList<IWebElement> FindElements(By locator, int? timeoutSeconds = null);
         void WaitForElementAttributeValue(By locator, string attributeName, string expectedValue, int? timeoutSeconds = null);
+        bool IsElementVisible(By locator);
     }
 }

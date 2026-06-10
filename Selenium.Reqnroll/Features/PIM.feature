@@ -8,20 +8,20 @@
     And I am on the "PIM" section
 
   Scenario: Create a new employee
-    When I open the PIM "Add Employee" section
+    When I open the "PIM" -> "Add Employee" section
     And I add a new employee
     Then the saved employee details should match the input profile
 
   Scenario: Edit an employee's contact details
     When I create a temporary employee
-    And I open the PIM "Employee List" section
+    And I open the "PIM" -> "Employee List" section
     And I search for that employee by ID
     And I edit the employee's contact details
     Then I should see the "Successfully Updated" message
 
   Scenario: Delete an employee
     When I create a temporary employee
-    And I open the PIM "Employee List" section
+    And I open the "PIM" -> "Employee List" section
     And I search for that employee by ID
     And I delete that employee
     Then I should see the "Successfully Deleted" message
@@ -29,7 +29,7 @@
 
   Scenario: Cancel employee deletion
     When I create a temporary employee
-    And I open the PIM "Employee List" section
+    And I open the "PIM" -> "Employee List" section
     And I search for that employee by ID
     And I start deleting the employee but cancel the confirmation
     Then I should still find that employee in the list

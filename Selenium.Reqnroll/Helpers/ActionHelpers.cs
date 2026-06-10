@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
-using Selenium.Core.Drivers; 
+using Selenium.Core.Drivers;
+using Selenium.Core.Models;
 
 namespace Selenium.Reqnroll.Helpers
 {
@@ -7,11 +8,13 @@ namespace Selenium.Reqnroll.Helpers
     {
         private readonly IWaitHelpers _wait;
         private readonly IDriverManager _driverManager;
+        private readonly TestSettings _settings;
 
-        public ActionHelpers(IWaitHelpers wait, IDriverManager driverManager)
+        public ActionHelpers(IWaitHelpers wait, IDriverManager driverManager, TestSettings settings)
         {
             _wait = wait ?? throw new ArgumentNullException(nameof(wait));
             _driverManager = driverManager ?? throw new ArgumentNullException(nameof(driverManager));
+            _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         }
 
         public void Click(By locator, int? timeoutSeconds = null)
@@ -53,23 +56,31 @@ namespace Selenium.Reqnroll.Helpers
 
         public string GetCellValue(int row, string columnName)
         {
-            var headerCells = _wait.FindElements(By.CssSelector(".oxd-table-header .oxd-table-header-cell"));
-            int headerIndex = -1;
-
-            for (int i = 0; i < headerCells.Count; i++)
+            if (!_settings.IsMobileEmulationEnabled)
             {
-                if (headerCells[i].Text.Trim() == columnName)
+                var headerCells = _wait.FindElements(By.CssSelector(".oxd-table-header .oxd-table-header-cell"));
+                int headerIndex = -1;
+
+                for (int i = 0; i < headerCells.Count; i++)
                 {
-                    headerIndex = i + 1;
-                    break;
+                    if (headerCells[i].Text.Trim() == columnName)
+                    {
+                        headerIndex = i + 1;
+                        break;
+                    }
                 }
+
+                if (headerIndex == -1)
+                    throw new Exception($"Column '{columnName}' not found.");
+
+                By cellLocator = By.XPath($"//div[contains(@class, 'oxd-table-card')][{row}]//div[contains(@class, 'oxd-table-cell')][{headerIndex}]");
+                return GetText(cellLocator).Trim();
             }
-
-            if (headerIndex == -1)
-                throw new Exception($"Column '{columnName}' not found.");
-
-            By cellLocator = By.XPath($"//div[contains(@class, 'oxd-table-card')][{row}]//div[contains(@class, 'oxd-table-cell')][{headerIndex}]");
-            return GetText(cellLocator).Trim();
+            else
+            {
+                By cellLocator = By.XPath($"((//div[contains(@class, 'oxd-card-table-body')]//div[contains(@class,'oxd-table-card --mobile')][{row}])//div[@class='header' and .='{columnName}'])/following-sibling::div");
+                return GetText(cellLocator).Trim();
+            }
         }
 
         public void ClickPencilIcon(int row)
@@ -84,10 +95,38 @@ namespace Selenium.Reqnroll.Helpers
             Click(trashLocator);
         }
 
-        public void OpenSection(string sectionName)
+        public void OpenSection(string mainSection, string? subSection = null)
         {
-            By sectionLink = By.XPath($"//a[contains(@role, 'link') and normalize-space(.)='{sectionName}'] | //a[normalize-space(.)='{sectionName}']");
-            Click(sectionLink);
+            var topBarNav = "//nav[contains(@class, 'oxd-topbar-body-nav') and @role='navigation']";
+            var topBarItem = topBarNav + "//*[contains(@class, 'oxd-topbar-body-nav-tab-item') and normalize-space(.)='{0}']";
+            By mainSectionLocator = By.XPath(string.Format(topBarItem, mainSection));
+            By moreLocator = By.XPath(string.Format(topBarItem, "More"));
+            By linkLocator = By.XPath($"//a[contains(@class, 'oxd-topbar-body-nav-tab-link') and normalize-space(.)='{mainSection}']");
+
+            if (_settings.IsMobileEmulationEnabled)
+            {
+                _wait.WaitForElementVisible(By.XPath(topBarNav));
+
+                if (_wait.IsElementVisible(mainSectionLocator))
+                {
+                    Click(mainSectionLocator);
+                }
+                else
+                {
+                    Click(moreLocator);
+                    Click(linkLocator);
+                }
+            }
+            else
+            {
+                Click(mainSectionLocator);
+            }
+
+            if (subSection != null)
+            {
+                By subSectionLocator = By.XPath($"//nav//a[normalize-space(.)='{subSection}'] | //header//a[normalize-space(.)='{subSection}'] | //a[normalize-space(.)='{subSection}']");
+                Click(subSectionLocator);
+            }
         }
 
         public void ButtonClick(string buttonName)
@@ -110,6 +149,25 @@ namespace Selenium.Reqnroll.Helpers
 
             _driverManager.Current.Navigate().GoToUrl(url);
         }
+
+        public void OpenTabInItem(string tabName)
+        {
+            By tabLocator = By.XPath($"//a[contains(@class, 'orangehrm-tabs-item') and normalize-space(.)='{tabName}']");
+            Click(tabLocator);
+        }
+
+        public void ExpandFilter()
+        {
+            By filterLocator = By.XPath("//div[@class='oxd-table-filter']");
+            By filterIconLocator = By.XPath("//div[@class='oxd-table-filter']//i[contains(@class, 'oxd-icon bi-caret-down-fill')]");
+
+            _wait.WaitForElementVisible(filterLocator);
+
+            if (_wait.IsElementVisible(filterIconLocator))
+            {
+                Click(filterIconLocator);
+            }
+        }
     }
 
     public interface IActionHelpers
@@ -122,9 +180,11 @@ namespace Selenium.Reqnroll.Helpers
         string GetCellValue(int row, string columnName);
         void ClickPencilIcon(int row);
         void ClickDeleteIcon(int row);
-        void OpenSection(string sectionName);
+        void OpenSection(string mainSection, string? subSection = null);
         void ButtonClick(string buttonName);
         void ConfirmationButtonClick(string buttonName);
-        void NavigateTo(string url); // 🔹 4. Добавен в интерфейсния контракт
+        void NavigateTo(string url);
+        void OpenTabInItem(string tabName);
+        void ExpandFilter();
     }
 }

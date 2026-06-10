@@ -145,7 +145,7 @@ namespace Selenium.Reqnroll.Features
   await this.FeatureBackgroundAsync();
 #line hidden
 #line 11
-    await testRunner.WhenAsync("I open the Recruitment \"Candidates\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+    await testRunner.WhenAsync("I open the \"Recruitment\" -> \"Candidates\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 12
     await testRunner.AndAsync("I add a new candidate", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");

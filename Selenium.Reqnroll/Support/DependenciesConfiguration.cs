@@ -28,8 +28,8 @@ namespace Selenium.Reqnroll.Support
             services.AddScoped<ILoginPage, LoginPage>();
             services.AddScoped<INavigationPage, NavigationPage>();
             services.AddScoped<IRecruitmentPage, RecruitmentPage>();
-            services.AddScoped<IAdminPage, AdminPage>();
             services.AddScoped<IPIMPage, PIMPage>();
+            services.AddScoped<IHeaderPage, HeaderPage>();
 
             return services;
         }

@@ -52,17 +52,11 @@ namespace Selenium.Reqnroll.Pages
             string actualEmployeeId = _waitHelpers.WaitForElementVisible(_actionHelpers.Input("Employee Id", hasLabel: true)).GetAttribute("value") ?? string.Empty;
             Assert.That(actualEmployeeId, Is.EqualTo(employee.EmployeeId));
         }
-
-        public void OpenEmployeeSection(string sectionName)
-        {
-            _actionHelpers.OpenSection(sectionName);
-        }
     }
-
+    
     public interface IPIMPage
     {
         void SaveEmployee();
         void AssertSavedEmployeeDetails(Employee employee);
-        void OpenEmployeeSection(string sectionName);
     }
 }

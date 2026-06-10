@@ -23,7 +23,7 @@ namespace Selenium.Core.Drivers
         public IWebDriver InitializeDriver()
         {
             var sel = _settings.Selenium;
-            var browserName = sel.Browser.ToLower();
+            var browserName = sel!.Browser!.ToLower();
             IWebDriver driver;
 
             if (browserName == "chrome" || browserName == "chromium")
@@ -46,7 +46,7 @@ namespace Selenium.Core.Drivers
                     options.AddArgument("--disable-gpu");
                 }
 
-                var devicePreset = Environment.GetEnvironmentVariable("DEVICE_PRESET") ?? sel.MobileEmulationDevice;
+                var devicePreset = _settings.ActiveDevicePreset;
 
                 if (!string.IsNullOrEmpty(devicePreset))
                 {
@@ -73,7 +73,7 @@ namespace Selenium.Core.Drivers
                 throw new NotSupportedException($"Browser {browserName} is not supported.");
             }
 
-            var activeDevice = Environment.GetEnvironmentVariable("DEVICE_PRESET") ?? sel.MobileEmulationDevice;
+            var activeDevice = _settings.ActiveDevicePreset;
             if (string.IsNullOrEmpty(activeDevice))
             {
                 driver.Manage().Window.Size = new System.Drawing.Size(sel.WindowWidth, sel.WindowHeight);

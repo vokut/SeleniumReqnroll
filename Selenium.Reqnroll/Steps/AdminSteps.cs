@@ -2,33 +2,23 @@
 using Reqnroll;
 using Selenium.Reqnroll.Enums;
 using Selenium.Reqnroll.Helpers;
-using Selenium.Reqnroll.Pages;
 
 namespace Selenium.Reqnroll.Steps
 {
     [Binding]
     public class AdminSteps
     {
-        private readonly IAdminPage _adminPage;
         private readonly IActionHelpers _actionHelpers;
         private readonly IAssertionHelpers _assertionHelpers; 
         private string? _jobTitle;
         private string? _locationName;
 
         public AdminSteps(
-            IAdminPage adminPage,
             IActionHelpers actionHelpers,
             IAssertionHelpers assertionHelpers)
         {
-            _adminPage = adminPage ?? throw new ArgumentNullException(nameof(adminPage));
             _actionHelpers = actionHelpers ?? throw new ArgumentNullException(nameof(actionHelpers));
             _assertionHelpers = assertionHelpers ?? throw new ArgumentNullException(nameof(assertionHelpers));
-        }
-
-        [When(@"I open the ""([^""]+)"" -> ""([^""]+)"" section")]
-        public void WhenIOpenAdminSubsection(string main, string sub)
-        {
-            _adminPage.OpenAdminSection(main, sub);
         }
 
         [When("I add a new job title")]
@@ -74,6 +64,7 @@ namespace Selenium.Reqnroll.Steps
         [When("I search for that location")]
         public void WhenISearchForThatLocation()
         {
+            _actionHelpers.ExpandFilter();
             _actionHelpers.Type(_actionHelpers.Input("Name"), _locationName!);
             _actionHelpers.ButtonClick("Search");
 

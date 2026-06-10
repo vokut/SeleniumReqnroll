@@ -145,7 +145,7 @@ namespace Selenium.Reqnroll.Features
   await this.FeatureBackgroundAsync();
 #line hidden
 #line 11
-    await testRunner.WhenAsync("I open the PIM \"Add Employee\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+    await testRunner.WhenAsync("I open the \"PIM\" -> \"Add Employee\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 12
     await testRunner.AndAsync("I add a new employee", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
@@ -184,7 +184,7 @@ namespace Selenium.Reqnroll.Features
     await testRunner.WhenAsync("I create a temporary employee", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 17
-    await testRunner.AndAsync("I open the PIM \"Employee List\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.AndAsync("I open the \"PIM\" -> \"Employee List\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 18
     await testRunner.AndAsync("I search for that employee by ID", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
@@ -226,7 +226,7 @@ namespace Selenium.Reqnroll.Features
     await testRunner.WhenAsync("I create a temporary employee", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 24
-    await testRunner.AndAsync("I open the PIM \"Employee List\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.AndAsync("I open the \"PIM\" -> \"Employee List\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 25
     await testRunner.AndAsync("I search for that employee by ID", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
@@ -271,7 +271,7 @@ namespace Selenium.Reqnroll.Features
     await testRunner.WhenAsync("I create a temporary employee", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 32
-    await testRunner.AndAsync("I open the PIM \"Employee List\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.AndAsync("I open the \"PIM\" -> \"Employee List\" section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 33
     await testRunner.AndAsync("I search for that employee by ID", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");

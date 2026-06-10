@@ -8,7 +8,7 @@
     And I am on the "Recruitment" section
 
   Scenario: Create a new candidate
-    When I open the Recruitment "Candidates" section
+    When I open the "Recruitment" -> "Candidates" section
     And I add a new candidate
     Then the saved candidate details should match the input profile
 

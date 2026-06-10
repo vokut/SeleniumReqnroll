@@ -25,12 +25,6 @@ namespace Selenium.Reqnroll.Steps
             _assertionHelpers = assertionHelpers ?? throw new ArgumentNullException(nameof(assertionHelpers));
         }
 
-        [When(@"I open the Recruitment ""([^""]+)"" section")]
-        public void WhenIOpenRecruitmentSection(string section)
-        {
-            _actionHelpers.OpenSection(section);
-        }
-
         [When("I add a new candidate")]
         public void WhenIAddANewCandidate()
         {
@@ -81,6 +75,7 @@ namespace Selenium.Reqnroll.Steps
         [When("I search for candidates by an invalid keyword")]
         public void WhenISearchForInvalidKeyword()
         {
+            _actionHelpers.ExpandFilter();
             _actionHelpers.Type(_actionHelpers.Input("Keywords", hasLabel: true), Guid.NewGuid().ToString());
             _actionHelpers.ButtonClick("Search");
         }
@@ -88,6 +83,7 @@ namespace Selenium.Reqnroll.Steps
         [When("I search for candidates by the first candidate's keyword")]
         public void WhenISearchByFirstCandidatesKeyword()
         {
+            _actionHelpers.ExpandFilter();
             _actionHelpers.Type(_actionHelpers.Input("Keywords", hasLabel: true), _candidate1!.Keywords);
             _actionHelpers.ButtonClick("Search");
         }
@@ -109,6 +105,7 @@ namespace Selenium.Reqnroll.Steps
         [When("I search for that candidate by keyword")]
         public void WhenISearchForCandidateByKeyword()
         {
+            _actionHelpers.ExpandFilter();
             _actionHelpers.Type(_actionHelpers.Input("Keywords", hasLabel: true), _candidate1!.Keywords);
             _actionHelpers.ButtonClick("Search");
 
