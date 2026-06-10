@@ -75,7 +75,7 @@ jobs:
 
     steps:
       - name: Download Report Artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: reqnroll-livingdoc
           path: ./StagingReport
